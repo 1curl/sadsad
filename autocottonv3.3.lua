@@ -141,9 +141,9 @@ end
 
 
 
-function processing_telegram_messages(result) -- функция проверОчки того что отправил чел
+function processing_telegram_messages(result) -- ГґГіГ­ГЄГ¶ГЁГї ГЇГ°Г®ГўГҐГ°ГЋГ·ГЄГЁ ГІГ®ГЈГ® Г·ГІГ® Г®ГІГЇГ°Г ГўГЁГ« Г·ГҐГ«
     if result then
-        -- тута мы проверяем все ли верно
+        -- ГІГіГІГ  Г¬Г» ГЇГ°Г®ГўГҐГ°ГїГҐГ¬ ГўГ±ГҐ Г«ГЁ ГўГҐГ°Г­Г®
         local proc_table = decodeJson(result)
         if proc_table.ok then
             if #proc_table.result > 0 then
@@ -153,18 +153,18 @@ function processing_telegram_messages(result) -- функция проверОчки того что отп
                         updateid = res_table.update_id
                         local message_from_user = res_table.message.text
                         if message_from_user then
-                            -- и тут если чел отправил текст мы сверяем
-                            local text = u8:decode(message_from_user) .. ' ' --добавляем в конец пробел дабы не произошли тех. шоколадки с командами(типо чтоб !q не считалось как !qq)
+                            -- ГЁ ГІГіГІ ГҐГ±Г«ГЁ Г·ГҐГ« Г®ГІГЇГ°Г ГўГЁГ« ГІГҐГЄГ±ГІ Г¬Г» Г±ГўГҐГ°ГїГҐГ¬
+                            local text = u8:decode(message_from_user) .. ' ' --Г¤Г®ГЎГ ГўГ«ГїГҐГ¬ Гў ГЄГ®Г­ГҐГ¶ ГЇГ°Г®ГЎГҐГ« Г¤Г ГЎГ» Г­ГҐ ГЇГ°Г®ГЁГ§Г®ГёГ«ГЁ ГІГҐГµ. ГёГ®ГЄГ®Г«Г Г¤ГЄГЁ Г± ГЄГ®Г¬Г Г­Г¤Г Г¬ГЁ(ГІГЁГЇГ® Г·ГІГ®ГЎ !q Г­ГҐ Г±Г·ГЁГІГ Г«Г®Г±Гј ГЄГ ГЄ !qq)
                             if text:match('^/start') then
-                                sendTelegramNotification('Приветствую! Тут ты можешь управлять своим ботом с помощю кнопок снизу. \ndeveloped by fokich')
+                                sendTelegramNotification('ГЏГ°ГЁГўГҐГІГ±ГІГўГіГѕ! Г’ГіГІ ГІГ» Г¬Г®Г¦ГҐГёГј ГіГЇГ°Г ГўГ«ГїГІГј Г±ГўГ®ГЁГ¬ ГЎГ®ГІГ®Г¬ Г± ГЇГ®Г¬Г®Г№Гѕ ГЄГ­Г®ГЇГ®ГЄ Г±Г­ГЁГ§Гі. \ndeveloped by fokich')
                             elseif text:match('^Mode') then
                                 mode = not mode
-                                sendTelegramNotification(mode and 'Бот включен' or 'Бот выключен')
+                                sendTelegramNotification(mode and 'ГЃГ®ГІ ГўГЄГ«ГѕГ·ГҐГ­' or 'ГЃГ®ГІ ГўГ»ГЄГ«ГѕГ·ГҐГ­')
                             elseif text:match('^Stats') then
-                                local isl = isLien and 'льна: ' or 'хлопка: '
-                                sendTelegramNotification('Количество собранного '.. isl .. totalct .. '\nОсталось: ' .. SliderInt[0] - totalct)
-                            else -- если же не найдется ни одна из команд выше, выведем сообщение
-                                sendTelegramNotification('Неизвестная команда!')
+                                local isl = isLien and 'Г«ГјГ­Г : ' or 'ГµГ«Г®ГЇГЄГ : '
+                                sendTelegramNotification('ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±Г®ГЎГ°Г Г­Г­Г®ГЈГ® '.. isl .. totalct .. '\nГЋГ±ГІГ Г«Г®Г±Гј: ' .. SliderInt[0] - totalct)
+                            else -- ГҐГ±Г«ГЁ Г¦ГҐ Г­ГҐ Г­Г Г©Г¤ГҐГІГ±Гї Г­ГЁ Г®Г¤Г­Г  ГЁГ§ ГЄГ®Г¬Г Г­Г¤ ГўГ»ГёГҐ, ГўГ»ГўГҐГ¤ГҐГ¬ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ
+                                sendTelegramNotification('ГЌГҐГЁГ§ГўГҐГ±ГІГ­Г Гї ГЄГ®Г¬Г Г­Г¤Г !')
                             end
                         end
                     end
@@ -174,7 +174,7 @@ function processing_telegram_messages(result) -- функция проверОчки того что отп
     end
 end
 
-function getLastUpdate() -- тут мы получаем последний ID сообщения, если же у вас в коде будет настройка токена и chat_id, вызовите эту функцию для того чтоб получить последнее сообщение
+function getLastUpdate() -- ГІГіГІ Г¬Г» ГЇГ®Г«ГіГ·Г ГҐГ¬ ГЇГ®Г±Г«ГҐГ¤Г­ГЁГ© ID Г±Г®Г®ГЎГ№ГҐГ­ГЁГї, ГҐГ±Г«ГЁ Г¦ГҐ Гі ГўГ Г± Гў ГЄГ®Г¤ГҐ ГЎГіГ¤ГҐГІ Г­Г Г±ГІГ°Г®Г©ГЄГ  ГІГ®ГЄГҐГ­Г  ГЁ chat_id, ГўГ»Г§Г®ГўГЁГІГҐ ГЅГІГі ГґГіГ­ГЄГ¶ГЁГѕ Г¤Г«Гї ГІГ®ГЈГ® Г·ГІГ®ГЎ ГЇГ®Г«ГіГ·ГЁГІГј ГЇГ®Г±Г«ГҐГ¤Г­ГҐГҐ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ
     async_http_request('https://api.telegram.org/bot'..mainIni.main.token..'/getUpdates?chat_id='..mainIni.main.userId..'&offset=-1','',function(result)
         if result then
             local proc_table = decodeJson(result)
@@ -185,7 +185,7 @@ function getLastUpdate() -- тут мы получаем последний ID сообщения, если же у ва
                         updateid = res_table.update_id
                     end
                 else
-                    updateid = 1 -- тут зададим значение 1, если таблица будет пустая
+                    updateid = 1 -- ГІГіГІ Г§Г Г¤Г Г¤ГЁГ¬ Г§Г­Г Г·ГҐГ­ГЁГҐ 1, ГҐГ±Г«ГЁ ГІГ ГЎГ«ГЁГ¶Г  ГЎГіГ¤ГҐГІ ГЇГіГ±ГІГ Гї
                 end
             end
         end
@@ -208,7 +208,7 @@ function main()
         wait(0)
         local thr1 = lua_thread.create_suspended(lookFor3dText)
         
-        -- Обработка состояния бота
+        -- ГЋГЎГ°Г ГЎГ®ГІГЄГ  Г±Г®Г±ГІГ®ГїГ­ГЁГї ГЎГ®ГІГ 
         if mode then
             thr1:run()
             if #array > 0 then
@@ -242,34 +242,34 @@ function main()
                             end
                         else
                             mode = false
-                            sampAddChatMessage('{cc66ff}[auto-cotton]: {FFFFFF}Бот собрал заданное кол-во ресурсов!', -1)
-                            sendTelegramNotification('Бот собрал заданное кол-во ресурсов')
+                            sampAddChatMessage('{cc66ff}[auto-cotton]: {FFFFFF}ГЃГ®ГІ Г±Г®ГЎГ°Г Г« Г§Г Г¤Г Г­Г­Г®ГҐ ГЄГ®Г«-ГўГ® Г°ГҐГ±ГіГ°Г±Г®Гў!', -1)
+                            sendTelegramNotification('ГЃГ®ГІ Г±Г®ГЎГ°Г Г« Г§Г Г¤Г Г­Г­Г®ГҐ ГЄГ®Г«-ГўГ® Г°ГҐГ±ГіГ°Г±Г®Гў')
                         end
                     else
-                        renderFontDrawText(fontonscreen, 'Куст не найден', resx / 2 + 500, resy / 2, -1, false)
+                        renderFontDrawText(fontonscreen, 'ГЉГіГ±ГІ Г­ГҐ Г­Г Г©Г¤ГҐГ­', resx / 2 + 500, resy / 2, -1, false)
                     end
                 else
-                    renderFontDrawText(fontonscreen, 'Куст не найден', resx / 2 + 500, resy / 2, -1, false)
+                    renderFontDrawText(fontonscreen, 'ГЉГіГ±ГІ Г­ГҐ Г­Г Г©Г¤ГҐГ­', resx / 2 + 500, resy / 2, -1, false)
                 end
             else
-                renderFontDrawText(fontonscreen, 'Куст не найден', resx / 2 + 500, resy / 2, -1, false)
+                renderFontDrawText(fontonscreen, 'ГЉГіГ±ГІ Г­ГҐ Г­Г Г©Г¤ГҐГ­', resx / 2 + 500, resy / 2, -1, false)
             end
         else
             thr1:terminate()
         end
         
-        -- Обработка команды через cheat
+        -- ГЋГЎГ°Г ГЎГ®ГІГЄГ  ГЄГ®Г¬Г Г­Г¤Г» Г·ГҐГ°ГҐГ§ cheat
         if testCheat('acccc') then
             mode = not mode
         end
         
-        -- Обработка нажатия клавиши END
+        -- ГЋГЎГ°Г ГЎГ®ГІГЄГ  Г­Г Г¦Г ГІГЁГї ГЄГ«Г ГўГЁГёГЁ END
         if isKeyDown(VK_END) then
-            -- Переключаем состояние режима (mode)
+            -- ГЏГҐГ°ГҐГЄГ«ГѕГ·Г ГҐГ¬ Г±Г®Г±ГІГ®ГїГ­ГЁГҐ Г°ГҐГ¦ГЁГ¬Г  (mode)
             mode = not mode
-            local modeText = mode and 'включен' or 'выключен'
-            sampAddChatMessage('{cc66ff}[auto-cotton]: {FFFFFF}Бот ' .. modeText, -1)
-            wait(200)  -- Добавляем задержку, чтобы избежать множественных срабатываний на одно нажатие
+            local modeText = mode and 'ГўГЄГ«ГѕГ·ГҐГ­' or 'ГўГ»ГЄГ«ГѕГ·ГҐГ­'
+            sampAddChatMessage('{cc66ff}[auto-cotton]: {FFFFFF}ГЃГ®ГІ ' .. modeText, -1)
+            wait(200)  -- Г„Г®ГЎГ ГўГ«ГїГҐГ¬ Г§Г Г¤ГҐГ°Г¦ГЄГі, Г·ГІГ®ГЎГ» ГЁГ§ГЎГҐГ¦Г ГІГј Г¬Г­Г®Г¦ГҐГ±ГІГўГҐГ­Г­Г»Гµ Г±Г°Г ГЎГ ГІГ»ГўГ Г­ГЁГ© Г­Г  Г®Г¤Г­Г® Г­Г Г¦Г ГІГЁГҐ
         end
     end
 end
@@ -284,22 +284,22 @@ function lookFor3dText()
             local myX, myY, myZ = getCharCoordinates(PLAYER_PED)
             local distance = getDistanceBetweenCoords3d(myX, myY, myZ, x, y, z)
 
-            if text:find('Можно собрать') and text:find('10') then
-                if text:find("Лён") and isLien then
+            if text:find('ГЊГ®Г¦Г­Г® Г±Г®ГЎГ°Г ГІГј') and text:find('10') then
+                if text:find("Г‹ВёГ­") and isLien then
                     table.insert(array, {['position'] = {x, y, z}, ['distance'] = distance, ['type'] = 2})
-                elseif text:find("Хлопок") and not isLien then
+                elseif text:find("Г•Г«Г®ГЇГ®ГЄ") and not isLien then
                     table.insert(array, {['position'] = {x, y, z}, ['distance'] = distance, ['type'] = 2})
                 end
             else
-                if text:find('этап 2') and text:find('Осталось') then
-                    if text:find("Лён") and isLien then
+                if text:find('ГЅГІГ ГЇ 2') and text:find('ГЋГ±ГІГ Г«Г®Г±Гј') then
+                    if text:find("Г‹ВёГ­") and isLien then
                         for i = 1, 59 do
                             if text:find("00:" .. (i < 10 and ("0" .. i) or i)) then
                                 table.insert(array, {['position'] = {x, y, z}, ['distance'] = distance, ['type'] = 1})
                                 break
                             end
                         end
-                    elseif text:find("Хлопок") and not isLien then
+                    elseif text:find("Г•Г«Г®ГЇГ®ГЄ") and not isLien then
                         for i = 1, 59 do
                             if text:find("00:" .. (i < 10 and ("0" .. i) or i)) then
                                 table.insert(array, {['position'] = {x, y, z}, ['distance'] = distance, ['type'] = 1})
@@ -393,7 +393,7 @@ end
 function sampev.onShowDialog(dialogId, style, title, button1, button2, text)
     if stopWithDialog then
         mode = false
-        sendTelegramNotification('Администратор овтетил вам в /pm: ' .. text)
+        sendTelegramNotification('ГЂГ¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г° Г®ГўГІГҐГІГЁГ« ГўГ Г¬ Гў /pm: ' .. text)
         if quitgame then
             os.execute('taskkill /IM gta_sa.exe /F')
         end
@@ -403,7 +403,7 @@ end
 function sampev.onSetPlayerPos(position)
     if stopWithSetPlayerPos then
         mode = false
-        sendTelegramNotification('Сервер/Администратор изменил вашу позицию: ' .. position)
+        sendTelegramNotification('Г‘ГҐГ°ГўГҐГ°/ГЂГ¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г° ГЁГ§Г¬ГҐГ­ГЁГ« ГўГ ГёГі ГЇГ®Г§ГЁГ¶ГЁГѕ: ' .. position)
         if quitgame then
             os.execute('taskkill /IM gta_sa.exe /F')
         end
@@ -422,14 +422,14 @@ function sampev.onSendAimSync(data)
 end
 
 function sampev.onServerMessage(color, text)
-    if stopWithChatMessage and text:find("Вы тут?") or text:find("Вы тут") or text:find("Вы здесь") or text:find("Вы здесь?") or text:find("вы тут?") or text:find("вы тут") or text:find("вы здесь") or text:find("вы здесь?") or text:find("в ы з д е с ь?") then
+    if stopWithChatMessage and text:find("Г‚Г» ГІГіГІ?") or text:find("Г‚Г» ГІГіГІ") or text:find("Г‚Г» Г§Г¤ГҐГ±Гј") or text:find("Г‚Г» Г§Г¤ГҐГ±Гј?") or text:find("ГўГ» ГІГіГІ?") or text:find("ГўГ» ГІГіГІ") or text:find("ГўГ» Г§Г¤ГҐГ±Гј") or text:find("ГўГ» Г§Г¤ГҐГ±Гј?") or text:find("Гў Г» Г§ Г¤ ГҐ Г± Гј?") then
         mode = false
         local allchat = '\n'
         for i = 100-3, 99 do
             local getstr = select(1,sampGetChatString(i))
             allchat = allchat .. getstr .. '\n'
         end
-        sendTelegramNotification('Бота спросили: вы тут?'  .. allchat)
+        sendTelegramNotification('ГЃГ®ГІГ  Г±ГЇГ°Г®Г±ГЁГ«ГЁ: ГўГ» ГІГіГІ?'  .. allchat)
         if quitgame then
             os.execute('taskkill /IM gta_sa.exe /F')
         end
@@ -457,31 +457,31 @@ imgui.OnFrame(function() return WinState[0] end, function(player)
     imgui.SetCursorPos(imgui.ImVec2(65, 25))
     imgui.PushFont(smal)
     imgui.Text(u8'auto-cotton')
-    if imgui.BeginChild(u8'Настройки', imgui.ImVec2(190, 160), true) then
+    if imgui.BeginChild(u8'ГЌГ Г±ГІГ°Г®Г©ГЄГЁ', imgui.ImVec2(190, 160), true) then
         imgui.PushFont(big)
-        if imgui.RadioButtonBool(u8'Статус', mode) then mode = not mode end
-        if imgui.RadioButtonBool(u8'Бег', sprint) then sprint = not sprint end
-        if imgui.RadioButtonBool(u8'Прыжки', autojump) then autojump = not autojump end
-        local isl = isLien and u8'лён' or u8'хлопок'
-        if imgui.RadioButtonBool(u8'Собираю ' .. isl, isLien) then
+        if imgui.RadioButtonBool(u8'Г‘ГІГ ГІГіГ±', mode) then mode = not mode end
+        if imgui.RadioButtonBool(u8'ГЃГҐГЈ', sprint) then sprint = not sprint end
+        if imgui.RadioButtonBool(u8'ГЏГ°Г»Г¦ГЄГЁ', autojump) then autojump = not autojump end
+        local isl = isLien and u8'Г«ВёГ­' or u8'ГµГ«Г®ГЇГ®ГЄ'
+        if imgui.RadioButtonBool(u8'Г‘Г®ГЎГЁГ°Г Гѕ ' .. isl, isLien) then
             isLien = not isLien 
         end
         imgui.SliderInt('##', SliderInt, 1, 10000)
         imgui.SetCursorPos(imgui.ImVec2(135, 122))
-        if imgui.Button(u8'Сброс') then totalct = 0 end
+        if imgui.Button(u8'Г‘ГЎГ°Г®Г±') then totalct = 0 end
         imgui.SetCursorPos(imgui.ImVec2(100, 10))
         if imgui.Button('TG') then WinTg[0] = not WinTg[0] end
         imgui.SetCursorPos(imgui.ImVec2(128, 10))
         if imgui.Button('Stats') then WinStats[0] = not WinStats[0] end
         imgui.SetCursorPos(imgui.ImVec2(100, 35))
-        if imgui.Button(u8'Настройки') then WinSet[0] = not WinSet[0] end
+        if imgui.Button(u8'ГЌГ Г±ГІГ°Г®Г©ГЄГЁ') then WinSet[0] = not WinSet[0] end
         imgui.EndChild() 
     end
     if imgui.BeginChild(u8'asd', imgui.ImVec2(190, 55), true) then
         imgui.SetCursorPos(imgui.ImVec2(12, 20))
-        imgui.Text(u8'Автор: fokich')
+        imgui.Text(u8'ГЂГўГІГ®Г°: fokich')
         imgui.SetCursorPos(imgui.ImVec2(122, 10))
-        imgui.Text(u8'Телеграм')
+        imgui.Text(u8'Г’ГҐГ«ГҐГЈГ°Г Г¬')
         if imgui.IsItemClicked() then os.execute('explorer https://t.me/devfokich') end
         imgui.SetCursorPos(imgui.ImVec2(123, 26))
         imgui.Text(u8'BlastHack')
@@ -496,11 +496,11 @@ imgui.OnFrame(function() return WinSet[0] end, function(player)
     imgui.SetNextWindowSize(imgui.ImVec2(280, 200), imgui.Cond.FirstUseEver)
     imgui.Begin('##Window', WinSet, imgui.WindowFlags.NoResize)
     imgui.PushFont(big)
-    imgui.Text(u8'Выключение')
-    if imgui.RadioButtonBool(u8'при диалоге от админа', stopWithDialog) then stopWithDialog = not stopWithDialog end
-    if imgui.RadioButtonBool(u8'при изменении позиции сервером', stopWithSetPlayerPos) then stopWithSetPlayerPos = not stopWithSetPlayerPos end
-    if imgui.RadioButtonBool(u8'при проверке на бота в чате', stopWithChatMessage) then stopWithChatMessage = not stopWithChatMessage end
-    if imgui.RadioButtonBool(u8'Выходить из игры', quitgame) then quitgame = not quitgame end
+    imgui.Text(u8'Г‚Г»ГЄГ«ГѕГ·ГҐГ­ГЁГҐ')
+    if imgui.RadioButtonBool(u8'ГЇГ°ГЁ Г¤ГЁГ Г«Г®ГЈГҐ Г®ГІ Г Г¤Г¬ГЁГ­Г ', stopWithDialog) then stopWithDialog = not stopWithDialog end
+    if imgui.RadioButtonBool(u8'ГЇГ°ГЁ ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГЁ ГЇГ®Г§ГЁГ¶ГЁГЁ Г±ГҐГ°ГўГҐГ°Г®Г¬', stopWithSetPlayerPos) then stopWithSetPlayerPos = not stopWithSetPlayerPos end
+    if imgui.RadioButtonBool(u8'ГЇГ°ГЁ ГЇГ°Г®ГўГҐГ°ГЄГҐ Г­Г  ГЎГ®ГІГ  Гў Г·Г ГІГҐ', stopWithChatMessage) then stopWithChatMessage = not stopWithChatMessage end
+    if imgui.RadioButtonBool(u8'Г‚Г»ГµГ®Г¤ГЁГІГј ГЁГ§ ГЁГЈГ°Г»', quitgame) then quitgame = not quitgame end
     imgui.End()
 end)
 
@@ -510,17 +510,17 @@ imgui.OnFrame(function() return WinTg[0] end, function(player)
     imgui.SetNextWindowSize(imgui.ImVec2(210, 200), imgui.Cond.FirstUseEver)
     imgui.Begin('##Window', WinTg, imgui.WindowFlags.NoResize)
     imgui.PushFont(big)
-    imgui.InputText(u8"Токен", tknField, 256)
+    imgui.InputText(u8"Г’Г®ГЄГҐГ­", tknField, 256)
     imgui.InputText(u8"User id", uIdField, 256)
-    if imgui.Button(u8'Сохранить!') then
+    if imgui.Button(u8'Г‘Г®ГµГ°Г Г­ГЁГІГј!') then
         mainIni.main.token = u8:decode(ffi.string(tknField))
         mainIni.main.userId = u8:decode(ffi.string(uIdField))
         inicfg.save(mainIni,'autocottonv3.ini')
         getLastUpdate() 
     end
-    if imgui.Button(u8'Тестовое Сообщение') then
-        sampAddChatMessage('[Telegram] Отправляю тестовое сообщение',-1)
-        sendTelegramNotification('Тестовое сообщение от '..sampGetPlayerNickname(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))))
+    if imgui.Button(u8'Г’ГҐГ±ГІГ®ГўГ®ГҐ Г‘Г®Г®ГЎГ№ГҐГ­ГЁГҐ') then
+        sampAddChatMessage('[Telegram] ГЋГІГЇГ°Г ГўГ«ГїГѕ ГІГҐГ±ГІГ®ГўГ®ГҐ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ',-1)
+        sendTelegramNotification('Г’ГҐГ±ГІГ®ГўГ®ГҐ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г®ГІ '..sampGetPlayerNickname(select(2, sampGetPlayerIdByCharHandle(PLAYER_PED))))
     end
     imgui.End()
 end)
@@ -530,9 +530,9 @@ imgui.OnFrame(function() return WinStats[0] end, function(player)
     imgui.SetNextWindowSize(imgui.ImVec2(210, 85), imgui.Cond.FirstUseEver)
     imgui.Begin('##Window', WinTg, imgui.WindowFlags.NoResize)
     imgui.PushFont(big)
-    local isl = isLien and u8'льна: ' or u8'хлопка: '
-    imgui.Text(u8'Кол-во ' .. isl .. totalct)
-    imgui.Text(u8'Осталось: ' .. SliderInt[0] - totalct)
+    local isl = isLien and u8'Г«ГјГ­Г : ' or u8'ГµГ«Г®ГЇГЄГ : '
+    imgui.Text(u8'ГЉГ®Г«-ГўГ® ' .. isl .. totalct)
+    imgui.Text(u8'ГЋГ±ГІГ Г«Г®Г±Гј: ' .. SliderInt[0] - totalct)
     imgui.End()
 end).HideCursor = true
 
